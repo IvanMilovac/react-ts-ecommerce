@@ -3,14 +3,14 @@ import { useQuery } from "react-query";
 import Grid from "@mui/material/Grid";
 import LinearProgress from "@mui/material/LinearProgress";
 import Alert from "@mui/material/Alert";
-
+import { v4 as uuidv4 } from "uuid";
 import ShopItem from "./ShopItem";
 
 const Shop: FC = () => {
   const fetchData = async () => {
     const response = await fetch("https://fakestoreapi.com/products");
     const data = await response.json();
-    return data;
+    return data.map((item: ShopItem) => ({ ...item, id: uuidv4(), amount: 0 }));
   };
 
   const { isLoading, error, data } = useQuery("productData", fetchData);
