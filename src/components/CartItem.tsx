@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import CardMedia from "@mui/material/CardMedia";
+import ClearIcon from "@mui/icons-material/Clear";
 import { stringSlicer } from "../utils";
 import { ItemsContext } from "../context/ItemsContext";
 
@@ -17,7 +18,24 @@ const CartItem: FC<ICartItemProps> = ({ item }) => {
   const { dispatch } = useContext(ItemsContext);
 
   return (
-    <Card sx={{ padding: "0.5rem", marginBottom: "1rem" }}>
+    <Card
+      sx={{ padding: "0.5rem", marginBottom: "1rem", position: "relative" }}
+    >
+      <ClearIcon
+        sx={{
+          position: "absolute",
+          top: "0",
+          right: "0",
+          color: "white",
+          background: "black",
+          padding: "0.1rem",
+          cursor: "pointer",
+          zIndex: 1000,
+        }}
+        onClick={() =>
+          dispatch({ type: "REMOVE_ITEM_FROM_CART", payload: item })
+        }
+      />
       <CardContent sx={{ position: "relative", padding: 0 }}>
         <CardMedia
           component="img"
